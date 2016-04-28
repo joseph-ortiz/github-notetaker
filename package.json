@@ -1,0 +1,29 @@
+{
+  "name": "github-notetaker",
+  "version": "1.0.0",
+  "description": "My First React App. A Github note taker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseph-ortiz/github-notetaker.git"
+  },
+  "author": "Joseph C. Ortiz <josepho011235@gmail.com> (http://joseph-ortiz.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joseph-ortiz/github-notetaker/issues"
+  },
+  "homepage": "https://github.com/joseph-ortiz/github-notetaker#readme",
+  "dependencies": {
+    "react": "15.0.1",
+    "react-dom": "15.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13"
+  }
+}
