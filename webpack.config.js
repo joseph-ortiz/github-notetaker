@@ -1,10 +1,10 @@
 module.exports = {
-  entry: './app/components/Main.js', 
+  entry: './app/App.js',
   output: {
-  	filename: "public/bundle.js" 
+  	filename: "public/bundle.js"
   },
   module: {
-  	loaders: [ 
+  	loaders: [
   		{
   			test: /\.jsx?$/,
   			exclude: /(node_modules|bower_components)/,
