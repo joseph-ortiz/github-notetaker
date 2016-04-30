@@ -24457,7 +24457,10 @@
 	var Repos = React.createClass({
 		displayName: 'Repos',
 
-
+		propTypes: {
+			username: React.PropTypes.string.isRequired,
+			repos: React.PropTypes.array.isRequired
+		},
 		render: function render() {
 			console.log(this.props);
 			return React.createElement(
@@ -24492,7 +24495,10 @@
 	var UserProfile = React.createClass({
 		displayName: 'UserProfile',
 
-
+		propTypes: {
+			username: React.PropTypes.string.isRequired,
+			bio: React.PropTypes.object.isRequired
+		},
 		render: function render() {
 			console.log(this.props);
 			return React.createElement(
@@ -24528,12 +24534,15 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Router = __webpack_require__(159);
 	var NotesList = __webpack_require__(217);
 
 	var Notes = React.createClass({
 		displayName: 'Notes',
 
+		propTypes: {
+			username: React.PropTypes.string.isRequired,
+			notes: React.PropTypes.array.isRequired
+		},
 		render: function render() {
 			console.log("Notes:" + this.props.notes);
 			return React.createElement(
@@ -25201,26 +25210,25 @@
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(1);
-	var Router = __webpack_require__(159);
 
 	var NotesList = React.createClass({
-		displayName: 'NotesList',
+		displayName: "NotesList",
 
 		render: function render() {
 			console.log("Notes:" + this.props.notes);
 			var notes = this.props.notes.map(function (note, index) {
 				return React.createElement(
-					'li',
-					{ className: 'list-group-item', key: index },
+					"li",
+					{ className: "list-group-item", key: index },
 					note['.value']
 				);
 			});
 			return React.createElement(
-				'ul',
-				{ className: 'list-group' },
+				"ul",
+				{ className: "list-group" },
 				notes
 			);
 		}

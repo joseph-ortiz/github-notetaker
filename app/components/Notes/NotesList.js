@@ -1,5 +1,4 @@
 var React = require('react');
-var Router = require('react-router');
 
 var NotesList = React.createClass({
 	render: function() {
