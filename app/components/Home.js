@@ -1,4 +1,5 @@
 var React = require('react');
+
 var Home = React.createClass({
 	render: function() {
 		return (
@@ -8,3 +9,5 @@ var Home = React.createClass({
 		);
 	}
 });
+
+module.exports = Home;
