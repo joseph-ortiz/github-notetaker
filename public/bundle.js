@@ -24411,7 +24411,7 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com");
+	    this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com/");
 	    var childRef = this.ref.child(this.props.params.username);
 	    this.bindAsArray(childRef, 'notes'); //binds the ref and the name of the state we want to bind too.
 	  },
@@ -24420,7 +24420,7 @@
 	  },
 
 	  handleAddNote: function handleAddNote(newNote) {
-	    this.ref.child(this.props.params.username).child(this.state.notes.length).set(newNote);
+	    this.ref.child(this.props.params.username).child(this.state.notes.length + 1).set(newNote);
 	  },
 	  render: function render() {
 	    console.log(this.props);
@@ -25214,26 +25214,25 @@
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var React = __webpack_require__(1);
-	var Router = __webpack_require__(159);
 
 	var NotesList = React.createClass({
-		displayName: 'NotesList',
+		displayName: "NotesList",
 
 		render: function render() {
 			console.log("Notes:" + this.props.notes);
 			var notes = this.props.notes.map(function (note, index) {
 				return React.createElement(
-					'li',
-					{ className: 'list-group-item', key: index },
+					"li",
+					{ className: "list-group-item", key: index },
 					note['.value']
 				);
 			});
 			return React.createElement(
-				'ul',
-				{ className: 'list-group' },
+				"ul",
+				{ className: "list-group" },
 				notes
 			);
 		}
@@ -25268,15 +25267,18 @@
 			return React.createElement(
 				'div',
 				{ className: 'input-group' },
-				React.createElement('input', {
-					type: 'text',
+				React.createElement('input', { type: 'text',
 					className: 'form-control',
 					placeholder: 'Add New Note',
 					ref: this.setRef }),
 				React.createElement(
 					'span',
 					{ className: 'input-group-btn' },
-					React.createElement('button', { className: 'btn btn-default', type: 'button', onClick: this.handleSubmit })
+					React.createElement(
+						'button',
+						{ className: 'btn btn-default', type: 'button', onClick: this.handleSubmit },
+						'Submit'
+					)
 				)
 			);
 		}
