@@ -24463,7 +24463,10 @@
 	var Repos = React.createClass({
 		displayName: 'Repos',
 
-
+		propTypes: {
+			username: React.PropTypes.string.isRequired,
+			repos: React.PropTypes.array.isRequired
+		},
 		render: function render() {
 			console.log(this.props);
 			return React.createElement(
@@ -24498,7 +24501,10 @@
 	var UserProfile = React.createClass({
 		displayName: 'UserProfile',
 
-
+		propTypes: {
+			username: React.PropTypes.string.isRequired,
+			bio: React.PropTypes.object.isRequired
+		},
 		render: function render() {
 			console.log(this.props);
 			return React.createElement(
@@ -24534,7 +24540,6 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Router = __webpack_require__(159);
 	var NotesList = __webpack_require__(217);
 	var AddNote = __webpack_require__(218);
 
@@ -24545,6 +24550,7 @@
 			username: React.PropTypes.string.isRequired,
 			notes: React.PropTypes.array.isRequired,
 			addNote: React.PropTypes.func.isRequired
+
 		},
 		render: function render() {
 			console.log("Notes:" + this.props.notes);

@@ -1,5 +1,4 @@
 var React = require('react');
-var Router = require('react-router');
 var NotesList = require('./NotesList');
 var AddNote = require('./AddNote');
 
@@ -8,6 +7,7 @@ var Notes = React.createClass({
 		username: React.PropTypes.string.isRequired,
 		notes: React.PropTypes.array.isRequired,
 		addNote: React.PropTypes.func.isRequired
+
 	},
 	render: function() {
 		console.log("Notes:" + this.props.notes);
