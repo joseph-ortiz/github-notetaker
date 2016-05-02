@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/joseph-ortiz/github-notetaker#readme",
   "dependencies": {
+    "axios": "0.11.0",
     "firebase": "2.3.2",
     "history": "1.13.1",
     "react": "^0.14.3",
