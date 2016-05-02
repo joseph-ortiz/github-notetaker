@@ -21,7 +21,7 @@ var Profile = React.createClass({
       };
   	},
   	componentDidMount() {
-  		this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com");
+  		this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com/");
   		var childRef = this.ref.child(this.props.params.username);
   		this.bindAsArray(childRef, 'notes'); //binds the ref and the name of the state we want to bind too.
 
@@ -37,6 +37,9 @@ var Profile = React.createClass({
   	componentWillUnmount() {
   		this.unbind('notes'); //Via Reactfire, we unbind the state listneer 	
   	},
+  	handleAddNote: function(newNote){
+  		this.ref.child(this.props.params.username).child(this.state.notes.length + 1).set(newNote)
+  	},
 	render: function() {
 		console.log(this.props);
 		return (
@@ -48,7 +51,10 @@ var Profile = React.createClass({
 		      		<Repos username={this.props.params.username} repos={this.state.repos}/>
 		      	</div>
 		      	<div className="col-md-4">
-		      		<Notes username={this.props.params.username} notes={this.state.notes}/>
+		      		<Notes 
+		      		username={this.props.params.username} 
+		      		notes={this.state.notes} 
+		      		addNote={this.handleAddNote} />
 		      	</div>
      		 </div>
 		);
