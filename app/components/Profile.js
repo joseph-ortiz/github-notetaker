@@ -22,24 +22,32 @@ var Profile = React.createClass({
   	},
   	componentDidMount() {
   		this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com/");
-  		var childRef = this.ref.child(this.props.params.username);
-  		this.bindAsArray(childRef, 'notes'); //binds the ref and the name of the state we want to bind too.
-
-  		helpers.getGithubInfo(this.props.params.username)
-  			.then(function(data){
-  				this.setState({
-  					bio: data.bio,
-  					repos: data.repos
-  				})
-  			}.bind(this))
-  			
+      this.init(this.props.params.username);
   	},
-  	componentWillUnmount() {
+    componentWillReceiveProps: function(nextProps){
+      console.log("The next props are " + nextProps);
+      this.unbind('notes'); //Via Reactfire, we unbind the state listneer   
+      this.init(nextProps.params.username);
+    },
+  	componentWillUnmount: function() {
   		this.unbind('notes'); //Via Reactfire, we unbind the state listneer 	
   	},
   	handleAddNote: function(newNote){
   		this.ref.child(this.props.params.username).child(this.state.notes.length + 1).set(newNote)
   	},
+    init: function(username){
+     var childRef = this.ref.child(username);
+      this.bindAsArray(childRef, 'notes'); //binds the ref and the name of the state we want to bind too.
+
+      helpers.getGithubInfo(username)
+        .then(function(data){
+          this.setState({
+            bio: data.bio,
+            repos: data.repos
+          })
+        }.bind(this))
+         
+    },
 	render: function() {
 		console.log(this.props);
 		return (
