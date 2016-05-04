@@ -24379,7 +24379,7 @@
 		handleSubmit: function handleSubmit() {
 			var username = this.usernameRef.value;
 			this.usernameRef.value = '';
-			this.history.pushState(null, "profile/" + username);
+			this.history.pushState(null, "/profile/" + username);
 		},
 		render: function render() {
 			return React.createElement(
@@ -24463,22 +24463,30 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com/");
-	    var childRef = this.ref.child(this.props.params.username);
+	    this.init(this.props.params.username);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log("The next props are " + nextProps);
+	    this.unbind('notes'); //Via Reactfire, we unbind the state listneer  
+	    this.init(nextProps.params.username);
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.unbind('notes'); //Via Reactfire, we unbind the state listneer 	
+	  },
+	  handleAddNote: function handleAddNote(newNote) {
+	    this.ref.child(this.props.params.username).child(this.state.notes.length + 1).set(newNote);
+	  },
+	  init: function init(username) {
+	    var childRef = this.ref.child(username);
 	    this.bindAsArray(childRef, 'notes'); //binds the ref and the name of the state we want to bind too.
 
-	    helpers.getGithubInfo(this.props.params.username).then(function (data) {
+	    helpers.getGithubInfo(username).then(function (data) {
 	      this.setState({
 	        bio: data.bio,
 	        repos: data.repos
 	      });
 	    }.bind(this));
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    this.unbind('notes'); //Via Reactfire, we unbind the state listneer 	
-	  },
-
-	  handleAddNote: function handleAddNote(newNote) {
-	    this.ref.child(this.props.params.username).child(this.state.notes.length + 1).set(newNote);
 	  },
 	  render: function render() {
 	    console.log(this.props);
