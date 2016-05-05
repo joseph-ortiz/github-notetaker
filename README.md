@@ -1,5 +1,3 @@
 # Building an App in React  
 
-What is React?  
-Why React?  
-
+http://joseph-ortiz.me/github-notetaker/public/index.html
