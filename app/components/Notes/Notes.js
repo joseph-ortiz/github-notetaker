@@ -1,5 +1,5 @@
 var React = require('react');
-var NotesList = require('./NotesList');
+import NotesList from './NotesList'
 var AddNote = require('./AddNote');
 
 var Notes = React.createClass({
