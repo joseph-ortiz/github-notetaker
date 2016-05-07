@@ -1,5 +1,4 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
 
 var UserProfile = React.createClass({
 	propTypes: {
