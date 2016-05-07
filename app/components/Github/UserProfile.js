@@ -2,7 +2,7 @@ import React from 'react';
 
 class UserProfile extends React.Component {
      render(){
-         eturn (
+         return (
                <div >
                 {this.props.bio.avatar_url && <li className="list-group-item">  <img src={this.props.bio.avatar_url} alt=""/></li>}
                 {this.props.bio.name && <li className="list-group-item">   Name: {this.props.bio.name}</li>}
