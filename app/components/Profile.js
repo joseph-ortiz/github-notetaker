@@ -1,72 +1,74 @@
 import React from 'react'
-var Router = require('react-router');
+import Router from'react-router'
 import Repos from './Github/Repos'
 import UserProfile from './Github/UserProfile'
-var Notes = require('./Notes/Notes');
-var ReactFireMixin = require('reactfire');
-var Firebase = require('firebase');
+import Notes from './Notes/Notes'
+import ReactFireMixin from 'reactfire'
+import Firebase from 'firebase'
 import getGithubInfo from '../utils/helpers'
+import Rebase from 're-base'
 
-var Profile = React.createClass({
-	mixins: [ReactFireMixin],
-	getInitialState() {
-      return {
-          notes:[1,2,3],
+const base = Rebase.createClass("https://gh-notetaker-jortiz.firebaseio.com/")
 
-          bio: {
-          	name: "Joseph Ortiz"
-          },
+class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
 
-          repos:['a','b','c']  
-      };
-  	},
-  	componentDidMount() {
-  		this.ref = new Firebase("https://gh-notetaker-jortiz.firebaseio.com/");
-      this.init(this.props.params.username);
-  	},
-    componentWillReceiveProps: function(nextProps){
-      console.log("The next props are " + nextProps);
-      this.unbind('notes'); //Via Reactfire, we unbind the state listneer   
-      this.init(nextProps.params.username);
-    },
-  	componentWillUnmount: function() {
-  		this.unbind('notes'); //Via Reactfire, we unbind the state listneer 	
-  	},
-  	handleAddNote: function(newNote){
-  		this.ref.child(this.props.params.username).child(this.state.notes.length + 1).set(newNote)
-  	},
-    init: function(username){
-     var childRef = this.ref.child(username);
-      this.bindAsArray(childRef, 'notes'); //binds the ref and the name of the state we want to bind too.
+            notes:[],
+            bio: {},
+            repos:[]
+        };
+    }
+    componentDidMount(){
+        this.init(this.props.params.username)
+    }
+    componentWillReceiveProps(nextProps){
+        base.removeBinding(this.ref);
+        this.init(nextProps.params.username);
+    }
+    componentWillUnmount() {
+        base.removeBinding(this.ref)
+    }
+    handleAddNote(newNote){
+        base.post(this.props.params.username, {
+            data: this.state.notes.concat([newNote])
+        })
+    }
+    init(username){
+        this.ref = base.bindToState(username, {
+            context: this,
+            asArray: true,
+            state: 'notes'
+        });
 
-      getGithubInfo(username)
-        .then(function(data){
-          this.setState({
-            bio: data.bio,
-            repos: data.repos
-          })
-        }.bind(this))
-         
-    },
-	render: function() {
-		console.log(this.props);
-		return (
-			<div className="row">
-		      	<div className="col-md-4">
-		      		<UserProfile username={this.props.params.username} bio={this.state.bio}/>
-		      	</div>
-		      	<div className="col-md-4">
-		      		<Repos username={this.props.params.username} repos={this.state.repos}/>
-		      	</div>
-		      	<div className="col-md-4">
-		      		<Notes 
-		      		username={this.props.params.username} 
-		      		notes={this.state.notes} 
-		      		addNote={this.handleAddNote} />
-		      	</div>
-     		 </div>
-		);
-	}
-});
+        getGithubInfo(username)
+            .then(function(data){
+                this.setState({
+                    bio: data.bio,
+                    repos: data.repos
+                })
+            }.bind(this))
 
-module.exports = Profile;
+    }
+    render() {
+        console.log(this.props);
+        return (
+            <div className="row">
+                <div className="col-md-4">
+                    <UserProfile username={this.props.params.username} bio={this.state.bio}/>
+                </div>
+                <div className="col-md-4">
+                    <Repos username={this.props.params.username} repos={this.state.repos}/>
+                </div>
+                <div className="col-md-4">
+                    <Notes
+                        username={this.props.params.username}
+                        notes={this.state.notes}
+                        addNote={(newNote) => this.handleAddNote(newNote) } />
+                </div>
+            </div>
+        );
+    }
+};
+export default Profile
