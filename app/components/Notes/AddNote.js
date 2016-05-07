@@ -16,8 +16,8 @@ var AddNote = React.createClass({
 	render: function() {
 		return (
 			<div className="input-group">
-				<input type="text" 
-					className="form-control" 
+				<input type="text"
+					className="form-control"
 					placeholder="Add New Note"
 					ref={this.setRef}/>
 				<span className="input-group-btn">
@@ -27,5 +27,4 @@ var AddNote = React.createClass({
 		);
 	}
 });
-
-module.exports = AddNote;
+export default AddNote
