@@ -25762,55 +25762,77 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	var Router = __webpack_require__(159);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var Repos = React.createClass({
-		displayName: 'Repos',
+	var _react = __webpack_require__(1);
 
-		propTypes: {
-			username: React.PropTypes.string.isRequired,
-			repos: React.PropTypes.array.isRequired
-		},
-		render: function render() {
-			console.log('Repos', this.props.repos);
-			var repos = this.props.repos.map(function (repo, index) {
-				return React.createElement(
-					'li',
-					{ className: 'list-group-item', key: index },
-					repo.html_url && React.createElement(
-						'h4',
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Repos = function (_React$Component) {
+		_inherits(Repos, _React$Component);
+
+		function Repos() {
+			_classCallCheck(this, Repos);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Repos).apply(this, arguments));
+		}
+
+		_createClass(Repos, [{
+			key: 'render',
+			value: function render() {
+				console.log('Repos', this.props.repos);
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h3',
 						null,
-						React.createElement(
-							'a',
-							{ href: repo.html_url },
-							repo.name
-						)
+						' User Repos '
 					),
-					repo.description && React.createElement(
-						'p',
-						null,
-						' ',
-						repo.description
+					_react2.default.createElement(
+						'ul',
+						{ className: 'list-group' },
+						this.props.repos.map(function (repo, index) {
+							return _react2.default.createElement(
+								'li',
+								{ className: 'list-group-item', key: index },
+								repo.html_url && _react2.default.createElement(
+									'h4',
+									null,
+									_react2.default.createElement(
+										'a',
+										{ href: repo.html_url },
+										repo.name
+									)
+								),
+								repo.description && _react2.default.createElement(
+									'p',
+									null,
+									' ',
+									repo.description
+								)
+							);
+						})
 					)
 				);
-			});
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'h3',
-					null,
-					' User Repos '
-				),
-				React.createElement(
-					'ul',
-					{ className: 'list-group' },
-					repos
-				)
-			);
-		}
-	});
+			}
+		}]);
+
+		return Repos;
+	}(_react2.default.Component);
+
+	Repos.propTypes = {
+		username: _react2.default.PropTypes.string.isRequired,
+		repos: _react2.default.PropTypes.array.isRequired
+	};
 
 	module.exports = Repos;
 
